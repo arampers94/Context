@@ -9,3 +9,21 @@ Many people on the internet tend to unconsiously form opinions influenced by the
 ### Solution
 
 Hiding comments and ratings until the user interacts with the post will allow for more genuine reactions to the content of the post by eliminating the social bias.
+
+### Stack
+
+-React
+-Redux
+-Firebase
+
+### Features (complete)
+
+-View post previews on the left side of the screen and click to expand on the right.
+-User auth (sign up/sign in)
+-Create text post
+-Rate post (like, dislike)
+
+## Features (in progress)
+-Comment on post
+-Edit post
+-Delete post
