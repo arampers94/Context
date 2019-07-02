@@ -18,7 +18,7 @@ Hiding comments and ratings until the user interacts with the post will allow fo
 - Create text post
 - Rate post (like, dislike)
 
-## Features (in progress)
+### Features (in progress)
 - Comment on post
 - Edit post
 - Delete post
