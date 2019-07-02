@@ -18,12 +18,12 @@ Hiding comments and ratings until the user interacts with the post will allow fo
 
 ### Features (complete)
 
--View post previews on the left side of the screen and click to expand on the right.
--User auth (sign up/sign in)
--Create text post
--Rate post (like, dislike)
+- View post previews on the left side of the screen and click to expand on the right.
+- User auth (sign up/sign in)
+- Create text post
+- Rate post (like, dislike)
 
 ## Features (in progress)
--Comment on post
--Edit post
--Delete post
+- Comment on post
+- Edit post
+- Delete post
