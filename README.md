@@ -1,3 +1,6 @@
+# Usage
+To create and interact with posts, you will have to create an account. Feel free to use any fake names and fake email addresses, even if they don't exist. Posts on the left can be clicked and expanded on the right for more detail. Link to project available at the top of this page.
+
 # Context
 Standard simple blog site with features that hide comments and ratings on posts until a user comments or rates a post. 
 
