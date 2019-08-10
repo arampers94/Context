@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Card, Form } from 'semantic-ui-react';
+import { Card, Form, Button } from 'semantic-ui-react';
+import PostComments from './PostComments';
 // import { showPostDetails } from '../../store/actions/postActions';
 // import { connect } from 'react-redux';
 
@@ -46,6 +47,12 @@ class PostDetails extends Component {
             disabled={isDisabled}
           />
         </Form>
+        <div id="post-comment">
+          <Button color="green">Post</Button>
+        </div>
+        <div>
+          <PostComments />
+        </div>
       </div>
     )
   }

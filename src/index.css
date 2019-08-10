@@ -38,3 +38,27 @@ h3 {
 .ui#space-home {
   margin-top: 55px;
 }
+
+#post-comment {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-content: center;
+  align-content: center;
+}
+
+#comments {
+  background-color: white;
+  margin-top: 30px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#user-initials {
+  height: 22px;
+  width: 22px;
+  background-color: cornflowerblue;
+  border-radius: 15px;
+  color: white;
+}

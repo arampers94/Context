@@ -2,19 +2,79 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import Feed from '../layout/Feed';
 import PostDetails from '../posts/PostDetails';
+import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
+
 import { firestoreConnect } from 'react-redux-firebase';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 class Home extends React.Component {
-  state = {
-    title: 'Click a post to view',
-    authorFirstName: '',
-    authorLastName: '',
-    content: '',
-    createdAt: '',
-    rating: 0,
-    isDisabled: true
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: 'Click a post to view',
+      authorFirstName: '',
+      authorLastName: '',
+      content: '',
+      createdAt: '',
+      rating: 0,
+      isDisabled: true
+    }
+
+    this.scrollToTop = this.scrollToTop.bind(this);
+  }
+
+  componentDidMount() {
+
+    Events.scrollEvent.register('begin', function () {
+      console.log("begin", arguments);
+    });
+
+    Events.scrollEvent.register('end', function () {
+      console.log("end", arguments);
+    });
+
+  }
+
+  scrollToTop() {
+    scroll.scrollToTop();
+  }
+  scrollTo() {
+    scroller.scrollTo('scroll-to-element', {
+      duration: 800,
+      delay: 0,
+      smooth: 'easeInOutQuart'
+    })
+  }
+  scrollToWithContainer() {
+
+    let goToContainer = new Promise((resolve, reject) => {
+
+      Events.scrollEvent.register('end', () => {
+        resolve();
+        Events.scrollEvent.remove('end');
+      });
+
+      scroller.scrollTo('scroll-container', {
+        duration: 800,
+        delay: 0,
+        smooth: 'easeInOutQuart'
+      });
+
+    });
+
+    goToContainer.then(() =>
+      scroller.scrollTo('scroll-container-second-element', {
+        duration: 800,
+        delay: 0,
+        smooth: 'easeInOutQuart',
+        containerId: 'scroll-container'
+      }));
+  }
+
+  componentWillUnmount() {
+    Events.scrollEvent.remove('begin');
+    Events.scrollEvent.remove('end');
   }
 
   onClickPost = (title, authorFirstName, authorLastName, content, createdAt, rating) => {
@@ -35,16 +95,25 @@ class Home extends React.Component {
     const post = this.state;
     return (
       <div id='space-home' className='ui container fluid'>
+
         <Grid columns={2}>
           <Grid.Row>
+
             <Grid.Column>
-              <Feed posts={posts} onClickPost={this.onClickPost} />
+              <article>
+                <Element name="posts">
+                  <Feed posts={posts} onClickPost={this.onClickPost} />
+                </Element>
+              </article>
             </Grid.Column>
             <Grid.Column>
-              <PostDetails post={post} />
+              <Element name="details">
+                <PostDetails post={post} />
+              </Element>
             </Grid.Column>
           </Grid.Row>
         </Grid>
+
       </div>
     )
   }

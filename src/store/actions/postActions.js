@@ -39,3 +39,12 @@ export const showPostDetails = (post) => {
     dispatch({ type: 'SHOW_POST_DETAILS', post })
   }
 }
+
+export const postComment = (postId, authorFirstName, authorLastName, date) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firestore.collection('posts').doc(postId).update({
+
+    })
+  }
+}
