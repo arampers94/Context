@@ -1,5 +1,5 @@
 export const createPost = (post) => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
+  return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     const profile = getState().firebase.profile;
     const authorId = getState().firebase.auth.uid;
@@ -37,14 +37,5 @@ export const updateRating = (postId, postRating, updateAmount) => {
 export const showPostDetails = (post) => {
   return (dispatch, getState) => {
     dispatch({ type: 'SHOW_POST_DETAILS', post })
-  }
-}
-
-export const postComment = (postId, authorFirstName, authorLastName, date) => {
-  return (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
-    firestore.collection('posts').doc(postId).update({
-
-    })
   }
 }

@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import { Card, Form, Button } from 'semantic-ui-react';
+import { Card, Form, Button, Feed, Icon, Header } from 'semantic-ui-react';
 import PostComments from './PostComments';
-// import { showPostDetails } from '../../store/actions/postActions';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import { postComment } from '../../store/actions/commentActions';
+import { Redirect } from 'react-router-dom';
 
+// Receives props from 'PostPreview' and displays them with more details
 class PostDetails extends Component {
   state = {
     post: this.props.post,
     comment: '',
-    isDisabled: true
+    isDisabled: true,
+    redirect: false,
+    comments: this.props.comments
   }
 
   componentWillReceiveProps(nextProps) {
@@ -18,19 +22,47 @@ class PostDetails extends Component {
     });
   }
 
+  renderRedirectToSignIn = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/signin' />
+    }
+  }
+
   handleChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     })
   }
 
+  handleClick = (e) => {
+    e.preventDefault();
+    const { comment, post } = this.state;
+    const { postComment, auth, profile } = this.props;
+    // console.log("COMMENT TO BE POSTED " + comment);
+
+
+    // If user is not logged in, redirect to sign in page
+    if (!auth.uid) {
+      this.setState({
+        redirect: true
+      })
+    }
+
+    const postId = post.postId;
+    const userFirstName = profile.firstName;
+    const userLastName = profile.lastName;
+
+    postComment(postId, comment, userFirstName, userLastName);
+  }
+
   render() {
     const { post, isDisabled } = this.state;
-    // const { title, authorFirstName, authorLastName, content, createdAt, rating } = this.props;
     const author = post.authorFirstName + ' ' + post.authorLastName;
+    const comments = post.comments;
 
     return (
       <div id="content" className="ui container">
+        {this.renderRedirectToSignIn()}
         <Card
           fluid
           color='orange'
@@ -48,20 +80,49 @@ class PostDetails extends Component {
           />
         </Form>
         <div id="post-comment">
-          <Button color="green">Post</Button>
+          <Button color="green" onClick={this.handleClick}>Post</Button>
         </div>
-        <div>
-          <PostComments />
+        <div id="comments" className="ui container">
+          <Feed size="medium">
+            <Header as='h3'>Comments</Header>
+            {comments && comments.map((comment, index) => {
+              console.log("LOGGING COMMENTS ");
+              console.log(comment);
+              let text = comment.comment;
+              let firstName = comment.userFirstName;
+              let lastName = comment.userLastName;
+              let date = comment.datePosted;
+              return (
+                <PostComments
+                  key={index}
+                  comment={text}
+                  userFirstName={firstName}
+                  userLastName={lastName}
+                  datePosted={date}
+                />
+              )
+            })}
+          </Feed>
         </div>
       </div>
     )
   }
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     showPostDetails: (post) => (dispatch(showPostDetails(post)))
-//   }
-// }
+const mapStateToProps = (state) => {
+  // console.log(state);
+  return {
+    auth: state.firebase.auth,
+    profile: state.firebase.profile
+  }
+}
 
-export default PostDetails;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    postComment: (postId, comment, userFirstName, userLastName) => (
+      dispatch(postComment(postId, comment, userFirstName, userLastName))
+    )
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetails);

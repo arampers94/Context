@@ -4,7 +4,8 @@ const initState = {
   authorLastName: '',
   content: '',
   createdAt: '',
-  rating: 0
+  rating: 0,
+  comments: []
 }
 
 const postReducer = (state = initState, action) => {
@@ -20,6 +21,18 @@ const postReducer = (state = initState, action) => {
       return state;
     case 'SHOW_POST_DETAILS':
       console.log('Showing post ', action.post);
+      return state;
+    case 'POST_COMMENT':
+      console.log('Posting comment', action.comment);
+      return state;
+    case 'POST_COMMENT_ERR':
+      console.log('Error posting comment', action.err);
+      return state;
+    case 'GET_COMMENTS':
+      console.log('Getting doc with comments', action.doc);
+      return state;
+    case 'GET_COMMENTS_ERR':
+      console.log('Error getting doc with comments', action.err);
       return state;
     default:
       return state;

@@ -4,6 +4,7 @@ import PostPreview from '../posts/PostPreview';
 
 class Feed extends Component {
 
+  // Passes post info to 'PostPreview' component
   onClickPost = (title, authorFirstName, authorLastName, content, createdAt, rating) => {
     const { onClickPost } = this.props;
     onClickPost(title, authorFirstName, authorLastName, content, createdAt, rating);
@@ -13,14 +14,7 @@ class Feed extends Component {
   render() {
     const { posts } = this.props;
     return (
-      <div id="content" className="ui center aligned container">
-        {posts && posts.map(post => {
-          console.log(post);
-          return (
-            <PostPreview key={post.id} post={post} onClickPost={this.onClickPost} />
-          )
-        })}
-      </div>
+      <h1>hello</h1>
     )
   }
 }

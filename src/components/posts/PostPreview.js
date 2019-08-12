@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { updateRating } from '../../store/actions/postActions';
 import { Redirect } from 'react-router-dom';
 
+// Renders state of home page; listens for changes to 'Home' component
 class PostPreview extends Component {
   state = {
     showRating: false,
@@ -18,16 +19,25 @@ class PostPreview extends Component {
     }
   }
 
+  // Passes post info to 'PostDetails' component
   onClickPost = () => {
     console.log('Post clicked');
     const { onClickPost, post } = this.props;
+
+    console.log('POST PREVIEW ');
+    console.log(post);
+
     const title = post.title;
     const authorFirstName = post.authorFirstName;
     const authorLastName = post.authorLastName;
     const content = post.content;
     const createdAt = post.createdAt;
     const rating = post.rating;
-    onClickPost(title, authorFirstName, authorLastName, content, createdAt, rating);
+    const postId = post.id;
+
+    // Method given by 'Home' component is called with post info, changing state of 'Home' and causing
+    // 'PostDetails' to re-render
+    onClickPost(title, authorFirstName, authorLastName, content, createdAt, rating, postId);
   }
 
   handleClick = (e) => {
@@ -37,6 +47,9 @@ class PostPreview extends Component {
     const id = post.id;
     const rating = post.rating;
 
+
+
+    // If user is not logged in, redirect to sign in page
     if (!auth.uid) {
       this.setState({
         redirect: true
@@ -137,7 +150,7 @@ class PostPreview extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  // console.log(state);
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile
