@@ -28,12 +28,6 @@ const postReducer = (state = initState, action) => {
     case 'POST_COMMENT_ERR':
       console.log('Error posting comment', action.err);
       return state;
-    case 'GET_COMMENTS':
-      console.log('Getting doc with comments', action.doc);
-      return state;
-    case 'GET_COMMENTS_ERR':
-      console.log('Error getting doc with comments', action.err);
-      return state;
     default:
       return state;
   }

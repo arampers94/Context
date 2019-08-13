@@ -17,17 +17,3 @@ export const postComment = (postId, comment, userFirstName, userLastName) => {
     })
   }
 }
-
-export const getComments = (postId) => {
-  return (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
-
-    firestore.collection('posts').doc(postId).get().then((doc) => {
-      console.log('GOT DOC');
-      console.log(doc.data());
-      dispatch({ type: 'GET_COMMENTS', doc });
-    }).catch((err) => {
-      dispatch({ type: 'GET_COMMENTS_ERR', err });
-    })
-  }
-}

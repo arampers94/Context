@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Feed, Icon, Header } from 'semantic-ui-react';
+import { Feed, Icon } from 'semantic-ui-react';
+import moment from 'moment';
 
 class PostComments extends Component {
   render() {
     const { comment, userFirstName, userLastName, datePosted } = this.props;
+    const datePostedRelative = moment(datePosted.toDate()).fromNow();
 
     return (
       <Feed.Event>
@@ -13,7 +15,7 @@ class PostComments extends Component {
         <Feed.Content>
           <Feed.Summary>
             {userFirstName} {userLastName}
-            <Feed.Date>3 hours ago</Feed.Date>
+            <Feed.Date>{datePostedRelative}</Feed.Date>
           </Feed.Summary>
           <Feed.Extra text>{comment}</Feed.Extra>
         </Feed.Content>

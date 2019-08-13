@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Form, Button, Feed, Icon, Header } from 'semantic-ui-react';
+import { Card, Form, Button, Feed, Header } from 'semantic-ui-react';
 import PostComments from './PostComments';
 import { connect } from 'react-redux';
 import { postComment } from '../../store/actions/commentActions';
@@ -34,12 +34,14 @@ class PostDetails extends Component {
     })
   }
 
+  // Post comment to firebase
   handleClick = (e) => {
     e.preventDefault();
     const { comment, post } = this.state;
     const { postComment, auth, profile } = this.props;
-    // console.log("COMMENT TO BE POSTED " + comment);
-
+    const postId = post.postId;
+    const userFirstName = profile.firstName;
+    const userLastName = profile.lastName;
 
     // If user is not logged in, redirect to sign in page
     if (!auth.uid) {
@@ -47,10 +49,6 @@ class PostDetails extends Component {
         redirect: true
       })
     }
-
-    const postId = post.postId;
-    const userFirstName = profile.firstName;
-    const userLastName = profile.lastName;
 
     postComment(postId, comment, userFirstName, userLastName);
   }
@@ -70,7 +68,7 @@ class PostDetails extends Component {
           meta={author}
           description={post.content}
         />
-        <Form>
+        <Form id='comment-textarea'>
           <Form.TextArea
             id='comment'
             placeholder='Join the conversation!'
@@ -80,14 +78,14 @@ class PostDetails extends Component {
           />
         </Form>
         <div id="post-comment">
-          <Button color="green" onClick={this.handleClick}>Post</Button>
+          <Button color="green" onClick={this.handleClick} disabled={isDisabled}>Post</Button>
         </div>
         <div id="comments" className="ui container">
-          <Feed size="medium">
+          <Feed>
             <Header as='h3'>Comments</Header>
             {comments && comments.map((comment, index) => {
-              console.log("LOGGING COMMENTS ");
-              console.log(comment);
+              // console.log("LOGGING COMMENTS ");
+              // console.log(comment);
               let text = comment.comment;
               let firstName = comment.userFirstName;
               let lastName = comment.userLastName;

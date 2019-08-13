@@ -47,8 +47,6 @@ class PostPreview extends Component {
     const id = post.id;
     const rating = post.rating;
 
-
-
     // If user is not logged in, redirect to sign in page
     if (!auth.uid) {
       this.setState({
@@ -133,7 +131,7 @@ class PostPreview extends Component {
     const author = "By: " + post.authorFirstName + " " + post.authorLastName;
     const content = post.content;
     return (
-      <div>
+      <div id='preview'>
         {this.renderRedirectToSignIn()}
         <Card
           fluid

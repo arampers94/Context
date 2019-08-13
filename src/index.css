@@ -23,7 +23,12 @@ h3 {
 
 .ui#content{
   padding-top: 55px;
-  width: 75%;
+  width: 95%;
+  padding-bottom: 10px;
+}
+
+#preview {
+  margin-bottom: 10px;
 }
 
 #login {
@@ -37,6 +42,7 @@ h3 {
 
 .ui#space-home {
   margin-top: 55px;
+  width: 100%;
 }
 
 #post-comment {
@@ -46,6 +52,11 @@ h3 {
   flex-wrap: wrap;
   -webkit-align-content: center;
   align-content: center;
+  visibility: hidden;
+}
+
+#comment-textarea {
+  visibility: hidden;
 }
 
 #comments {
@@ -53,6 +64,7 @@ h3 {
   margin-top: 30px;
   padding: 10px;
   border-radius: 10px;
+  visibility: hidden;
 }
 
 #user-initials {
