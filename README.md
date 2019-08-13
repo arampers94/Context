@@ -20,8 +20,8 @@ Hiding comments and ratings until the user interacts with the post will allow fo
 - User auth (sign up/sign in)
 - Create text post
 - Rate post (like, dislike)
+- Comment on post
 
 ### Features (in progress)
-- Comment on post
 - Edit post
 - Delete post
